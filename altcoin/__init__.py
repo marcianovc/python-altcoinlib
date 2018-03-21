@@ -12,6 +12,7 @@
 
 from altcoin.core import CoreDogeMainParams, CoreDogeTestNetParams, _SelectCoreParams
 from altcoin.core import CoreLtcMainParams, CoreLtcTestNetParams
+from altcoin.core import CoreMartexMainParams, CoreMartexTestNetParam
 from bitcoin.core import b2lx
 import bitcoin
 
@@ -93,6 +94,33 @@ class DogeTestNetParams(CoreDogeTestNetParams):
                        'SCRIPT_ADDR':196,
                        'SECRET_KEY' :241}
 
+# MarteXcoin main/testnet information  
+# 
+# See 
+# https://github.com/martexcoin/martexcoin/blob/master/src/chainparams.cpp
+
+class MartexMainParams(CoreMartexMainParams):
+    MESSAGE_START = b'\x2d\x3f\xa2\xf5'
+    DEFAULT_PORT = 51315
+    RPC_PORT = 51314
+    DNS_SEEDS = (('seed0', 'seed.martexcoin.org:51315'),
+                 ('seed1', 'seed1.martexcoin.org:51315'),
+                 ('seed2', 'seed2.martexcoin.org:51315'),
+                 ('seed3', 'seed3.martexcoin.org:51315'),
+                 ('seed4', 'seed4.martexcoin.org:51315'))
+    BASE58_PREFIXES = {'PUBKEY_ADDR':50,
+                       'SCRIPT_ADDR':5,
+                       'SECRET_KEY' :178}
+
+class MartexTestNetParams(CoreMartexTestNetParams):
+    MESSAGE_START = b'\x70\x35\x22\x05'
+    DEFAULT_PORT = 41315
+    RPC_PORT = 41314
+    DNS_SEEDS = (('seed', 'testnet.martexcoin.org:41315'))
+    BASE58_PREFIXES = {'PUBKEY_ADDR':111,
+                       'SCRIPT_ADDR':196,
+                       'SECRET_KEY' :324}
+
 available_params = {}
 
 def SelectParams(genesis_block_hash):
@@ -115,6 +143,8 @@ for current_params in [
       bitcoin.TestNetParams(),
       DogeMainParams(),
       DogeTestNetParams(),
+      MartexMainParams(),
+      MartexTestNetParams(),
       LtcMainParams(),
       LtcTestNetParams()
   ]:
@@ -124,6 +154,8 @@ for current_params in [
 __all__ = (
         'LtcMainParams',
         'LtcTestNetParams',
+        'MartexMainParams',
+        'MartexTestNetParams',
         'DogeMainParams',
         'DogeTestNetParams',
         'SelectParams',
